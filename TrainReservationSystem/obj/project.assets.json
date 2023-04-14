@@ -2925,11 +2925,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\TrainReservationSystem.csproj",
+      "projectUniqueName": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\TrainReservationSystem\\TrainReservationSystem.csproj",
       "projectName": "TrainReservationSystem",
-      "projectPath": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\TrainReservationSystem.csproj",
+      "projectPath": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\TrainReservationSystem\\TrainReservationSystem.csproj",
       "packagesPath": "C:\\Users\\kalyan\\.nuget\\packages\\",
-      "outputPath": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\obj\\",
+      "outputPath": "D:\\ASP.NET Projects\\TrainReservationSystemSolution\\TrainReservationSystem\\TrainReservationSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
