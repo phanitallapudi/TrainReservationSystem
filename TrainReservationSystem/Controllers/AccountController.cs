@@ -130,6 +130,15 @@ namespace TrainReservationSystem.Controllers
             return RedirectToAction();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(UserProfileDetails userProf)
+        {
+            return View();
+        }
 
     }
 }
