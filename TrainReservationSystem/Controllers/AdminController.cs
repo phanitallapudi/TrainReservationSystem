@@ -66,7 +66,6 @@ namespace TrainReservationSystem.Controllers
 
             if (existingObject == null)
             {
-                
             }
 
             return View(existingObject);
@@ -97,6 +96,31 @@ namespace TrainReservationSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult InfoDelete(int id)
+        {
+            var changes = context.TrainDetails.Where(model => model.Id == id).FirstOrDefault();
+            return View(changes);
+        }
+
+        [HttpPost]
+        public ActionResult InfoDelete(TrainDetails stud)
+        {
+            context.Entry(stud).State = EntityState.Deleted;
+            var removeData = context.TrainDetails.Where(m => m.Id == stud.Id).FirstOrDefault();
+            //context.Std_TableInfo.Remove(removeData);
+            int change = context.SaveChanges();
+
+            if (change > 0)
+            {
+                ModelState.Clear();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.EditMdsg = ("<script>alert('Error occured')</script>");
+            }
+            return View();
+        }
 
     }
 }
