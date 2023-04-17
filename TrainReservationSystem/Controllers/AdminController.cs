@@ -12,8 +12,22 @@ namespace TrainReservationSystem.Controllers
         {
             context = _context;
         }
+
+
+        //private bool IsTrainDepartureTimePassed(DateTime departureTime)
+        //{
+        //    return DateTime.Now > departureTime;
+        //}
+
         public IActionResult Index()
         {
+            var expiredTrainDetails = context.TrainDetails.Where(td => td.Departure < DateTime.Now).ToList();
+
+            // Remove the expired train details from the context
+            context.RemoveRange(expiredTrainDetails);
+            context.SaveChanges();
+
+
             var obj = context.TrainDetails.ToList();
             return View(obj);
         }
@@ -24,6 +38,11 @@ namespace TrainReservationSystem.Controllers
         [HttpPost]
         public IActionResult Create(TrainDetails obj)
         {
+            if (obj.Departure < DateTime.Now || obj.Arrival < obj.Departure)
+            {
+                TempData["Message"] = "Please enter valid departure or arrival date.";
+                return View("Create");
+            }
             context.TrainDetails.Add(obj);
             context.SaveChanges();
 
