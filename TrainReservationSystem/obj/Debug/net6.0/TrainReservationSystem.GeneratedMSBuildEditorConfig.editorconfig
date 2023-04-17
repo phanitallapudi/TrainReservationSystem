@@ -16,8 +16,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWduVXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/Welcome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxXZWxjb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Home/Index.cshtml]
