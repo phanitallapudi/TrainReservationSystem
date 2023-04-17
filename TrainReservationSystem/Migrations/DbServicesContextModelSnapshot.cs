@@ -81,15 +81,12 @@ namespace TrainReservationSystem.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("SeatCapacity")
-                        .HasMaxLength(8)
                         .HasColumnType("int");
 
                     b.Property<int>("SeatRate")
-                        .HasMaxLength(8)
                         .HasColumnType("int");
 
                     b.Property<int>("TrainId")
-                        .HasMaxLength(100)
                         .HasColumnType("int");
 
                     b.Property<string>("TrainName")

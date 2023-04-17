@@ -5,12 +5,12 @@ namespace TrainReservationSystem.Models
 {
     public class TrainDetails
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
         public string TrainName { get; set; }
         [Required]
-        [StringLength(100)]
         public int TrainId { get; set; }
         [Required]
         [StringLength(100)]
@@ -23,12 +23,9 @@ namespace TrainReservationSystem.Models
         [Required]
         public DateTime Arrival { get; set; }
         [Required]
-        [StringLength(8)]
         public int SeatCapacity { get; set; }
         [Required]
-        [StringLength(8)]
         public int SeatRate { get; set; }
+     }
 
-
-    }
 }

@@ -12,8 +12,8 @@ using TrainReservationSystem.Models;
 namespace TrainReservationSystem.Migrations
 {
     [DbContext(typeof(DbServicesContext))]
-    [Migration("20230414035200_InitialDatabaseCheck")]
-    partial class InitialDatabaseCheck
+    [Migration("20230417115322_updatedatabase")]
+    partial class updatedatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,15 +84,12 @@ namespace TrainReservationSystem.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("SeatCapacity")
-                        .HasMaxLength(8)
                         .HasColumnType("int");
 
                     b.Property<int>("SeatRate")
-                        .HasMaxLength(8)
                         .HasColumnType("int");
 
                     b.Property<int>("TrainId")
-                        .HasMaxLength(100)
                         .HasColumnType("int");
 
                     b.Property<string>("TrainName")
