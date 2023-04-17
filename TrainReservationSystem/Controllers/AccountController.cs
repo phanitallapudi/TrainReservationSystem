@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -89,14 +94,15 @@ namespace TrainReservationSystem.Controllers
                 if (isValidEmail)
                 {
 
-                    if (userProf.Password != userProf.ConfirmPassword)
-                    {
-                        TempData["ConfirmPassword"] = "Password is not matching";
-                        return RedirectToAction("SignUp");
-                    }
+                    //if (userProf.Password != userProf.ConfirmPassword)
+                    //{
+                    //    TempData["ConfirmPassword"] = "Password is not matching";
+                    //    return RedirectToAction("SignUp");
+                    //}
 
-
-                    userProf.ConfirmPassword = HashPassword(userProf.Password);
+                    string hPass = HashPassword(userProf.Password);
+                    userProf.Password = hPass;
+                    //userProf.ConfirmPassword = hPass;
 
 
                     context.UserProfileDetails.Add(userProf);
@@ -127,15 +133,49 @@ namespace TrainReservationSystem.Controllers
                 return RedirectToAction("SignUp");
             }
 
-            return RedirectToAction();
+            return RedirectToAction("Login");
         }
-
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Login(UserProfileDetails userProf)
+        public IActionResult Login(UserProfileDetails user)
+        {
+            var storedUser = context.UserProfileDetails.SingleOrDefault(u => u.Email == user.Email);
+
+            if (storedUser != null && VerifyPassword(user.Password, storedUser.Password))
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("your_secret_key_here");
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                new Claim(ClaimTypes.Name, storedUser.Email)
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                                        SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var jwtToken = tokenHandler.WriteToken(token);
+                HttpContext.Session.SetString("JWTtoken", jwtToken);
+
+
+
+                //return Ok(new { token = tokenHandler.WriteToken(token) });
+                return RedirectToAction("Welcome");
+            }
+
+            return Unauthorized();
+        }
+
+
+        public IActionResult Welcome()
         {
             return View();
         }
