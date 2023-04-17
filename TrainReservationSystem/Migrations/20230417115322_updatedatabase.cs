@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrainReservationSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDatabaseCheck : Migration
+    public partial class updatedatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,13 +18,13 @@ namespace TrainReservationSystem.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrainName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TrainId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    TrainId = table.Column<int>(type: "int", nullable: false),
                     Origin = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Destination = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Departure = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Arrival = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SeatCapacity = table.Column<int>(type: "int", maxLength: 8, nullable: false),
-                    SeatRate = table.Column<int>(type: "int", maxLength: 8, nullable: false)
+                    SeatCapacity = table.Column<int>(type: "int", nullable: false),
+                    SeatRate = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
