@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5mb0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoEdit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5mb0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
