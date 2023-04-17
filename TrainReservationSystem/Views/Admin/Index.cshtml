@@ -1,7 +1,84 @@
-﻿@*
+﻿@model IEnumerable<TrainReservationSystem.Models.TrainDetails>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
 <a href="Admin/Create">Add Train</a>
+
+
+
+
+
+<p>
+    <h3>
+        Personal Information
+    </h3>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrainName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrainId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Origin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatCapacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatRate)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arrival)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatRate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "InfoEdit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "InfoDelete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    }
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrainReservationSystem.Models;
 
 namespace TrainReservationSystem.Controllers
@@ -13,7 +14,8 @@ namespace TrainReservationSystem.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var obj = context.TrainDetails.ToList();
+            return View(obj);
         }
         public IActionResult Create()
         {
@@ -27,5 +29,74 @@ namespace TrainReservationSystem.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var elem = context.TrainDetails.SingleOrDefault(model => model.Id == id);
+            if (elem == null)
+            {
+                return View();
+            }
+            return View(elem);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(TrainDetails stud)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(stud);
+            }
+            context.Entry(stud).State = EntityState.Modified;
+            int change = context.SaveChanges();
+
+            if (change > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.EditMdsg = ("<script>alert('Error occured')</script>");
+                return View(stud);
+            }
+        }
+        public ActionResult InfoEdit(int id)
+        {
+            var existingObject = context.TrainDetails.FirstOrDefault(x => x.Id == id);
+
+            if (existingObject == null)
+            {
+                
+            }
+
+            return View(existingObject);
+        }
+
+
+        [HttpPost]
+        public ActionResult InfoEdit(TrainDetails model)
+        {
+            var existingObject = context.TrainDetails.FirstOrDefault(x => x.Id == model.Id);
+
+            if (existingObject == null)
+            {
+                
+            }
+
+            existingObject.TrainName = model.TrainName;
+            existingObject.TrainId = model.TrainId;
+            existingObject.Origin = model.Origin;
+            existingObject.Destination = model.Destination;
+            existingObject.Departure = model.Departure;
+            existingObject.Arrival = model.Arrival;
+            existingObject.SeatCapacity = model.SeatCapacity;
+            existingObject.SeatRate = model.SeatRate;
+
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
