@@ -17,6 +17,22 @@
     </h3>
 </p>
 
+<p>
+    @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+    {
+        <b>Search By:</b> 
+        
+        @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text>
+        @Html.RadioButton("searchBy", "Origin") <text>Origin</text>
+        @Html.RadioButton("searchBy", "Destination") <text>Destionation</text>
+
+
+        <br />
+        @Html.TextBox("search") <input type="submit" value="search" />
+
+    }
+</p>
+
 <table class="table">
     <tr>
         <th>
