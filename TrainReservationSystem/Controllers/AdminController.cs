@@ -19,52 +19,70 @@ namespace TrainReservationSystem.Controllers
         //    return DateTime.Now > departureTime;
         //}
 
-        public IActionResult Index()
+        public IActionResult Index(string searchBy, string search)
         {
-            var expiredTrainDetails = context.TrainDetails.Where(td => td.Departure < DateTime.Now).ToList();
+            if (searchBy == "TrainId")
+            {
+                int number = Convert.ToInt32(search);
+                return View(context.TrainDetails.Where(x => x.TrainId == number));
+            }
+            else if (searchBy == "Origin")
+            {
+                return View(context.TrainDetails.Where(x => x.Origin == search));
+            }
+            else if (searchBy == "Destination")
+            {
+                return View(context.TrainDetails.Where(x => x.Destination == search));
+            }
+            else
+            {
+                var expiredTrainDetails = context.TrainDetails.Where(td => td.Departure < DateTime.Now).ToList();
 
-            // Remove the expired train details from the context
-            //foreach (var trainDetails in expiredTrainDetails)
-            //{
-            //    OlderTrainDetails olderTrainDetails = new OlderTrainDetails
-            //    {
-            //        Id = trainDetails.Id,
-            //        TrainName = trainDetails.TrainName,
-            //        TrainId = trainDetails.TrainId,
-            //        Origin = trainDetails.Origin,
-            //        Destination = trainDetails.Destination,
-            //        Departure = trainDetails.Departure,
-            //        Arrival = trainDetails.Arrival,
-            //        SeatCapacity = trainDetails.SeatCapacity,
-            //        SeatRate = trainDetails.SeatRate
-            //    };
-            //    context.OlderTrainDetails.Add(olderTrainDetails);
-            //}    
-            //context.RemoveRange(expiredTrainDetails);
-            //context.SaveChanges();
+                // Remove the expired train details from the context
+                //foreach (var trainDetails in expiredTrainDetails)
+                //{
+                //    OlderTrainDetails olderTrainDetails = new OlderTrainDetails
+                //    {
+                //        Id = trainDetails.Id,
+                //        TrainName = trainDetails.TrainName,
+                //        TrainId = trainDetails.TrainId,
+                //        Origin = trainDetails.Origin,
+                //        Destination = trainDetails.Destination,
+                //        Departure = trainDetails.Departure,
+                //        Arrival = trainDetails.Arrival,
+                //        SeatCapacity = trainDetails.SeatCapacity,
+                //        SeatRate = trainDetails.SeatRate
+                //    };
+                //    context.OlderTrainDetails.Add(olderTrainDetails);
+                //}    
+                //context.RemoveRange(expiredTrainDetails);
+                //context.SaveChanges();
 
-            var olderTrainDetails = expiredTrainDetails
-                .Select(td => new OlderTrainDetails
-                {
-                    TrainName = td.TrainName,
-                    TrainId = td.TrainId,
-                    Origin = td.Origin,
-                    Destination = td.Destination,
-                    Departure = td.Departure,
-                    Arrival = td.Arrival,
-                    SeatCapacity = td.SeatCapacity,
-                    SeatRate = td.SeatRate
-                })
-                .ToList();
+                var olderTrainDetails = expiredTrainDetails
+                    .Select(td => new OlderTrainDetails
+                    {
+                        TrainName = td.TrainName,
+                        TrainId = td.TrainId,
+                        Origin = td.Origin,
+                        Destination = td.Destination,
+                        Departure = td.Departure,
+                        Arrival = td.Arrival,
+                        SeatCapacity = td.SeatCapacity,
+                        SeatRate = td.SeatRate
+                    })
+                    .ToList();
 
-            // Add the new objects to the context and remove the expired train details
-            context.OlderTrainDetails.AddRange(olderTrainDetails);
-            context.TrainDetails.RemoveRange(expiredTrainDetails);
-            context.SaveChanges();
+                // Add the new objects to the context and remove the expired train details
+                context.OlderTrainDetails.AddRange(olderTrainDetails);
+                context.TrainDetails.RemoveRange(expiredTrainDetails);
+                context.SaveChanges();
 
 
-            var obj = context.TrainDetails.ToList();
-            return View(obj);
+                var obj = context.TrainDetails.ToList();
+                return View(obj);
+            }
+            
+            
         }
         public IActionResult Create()
         {

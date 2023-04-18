@@ -29,6 +29,13 @@ namespace TrainReservationSystem.Controllers
             return context.UserProfileDetails.Any(u => u.Email == name);
         }
 
+        public static int GeneratePNR()
+        {
+            Random rnd = new Random();
+            return rnd.Next(100000, 999999);
+        }
+
+
         public static string HashPassword(string password)
         {
             // generate a 128-bit salt using a secure random number generator
@@ -198,10 +205,75 @@ namespace TrainReservationSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult BookTicket(BookingHistory bookingHistory)
+        [HttpPost]
+        public IActionResult BookTicket(int trainId, int ticketCount, List<PassengerDetails> passengerDetails)
         {
-            return View();
+            var train = context.TrainDetails.SingleOrDefault(t => t.Id == trainId);
+            if (train == null)
+            {
+                TempData["Message"] = "Invalid train selected.";
+                return RedirectToAction("Welcome");
+            }
+
+            if (ticketCount > 6)
+            {
+                TempData["Message"] = "You cannot book more than 6 tickets at a time.";
+                return RedirectToAction("Welcome");
+            }
+
+            var user = context.UserProfileDetails.SingleOrDefault(u => u.Email == User.Identity.Name);
+            if (user == null)
+            {
+                TempData["Message"] = "User not found.";
+                return RedirectToAction("Login");
+            }
+
+            if (train.SeatCapacity < ticketCount)
+            {
+                TempData["Message"] = "Not enough seats available for the selected train.";
+                return RedirectToAction("Welcome");
+            }
+
+            var booking = new BookingHistory
+            {
+
+                PNR = GeneratePNR(),
+                BookingDate = DateTime.UtcNow,
+                ticketCount = ticketCount,
+                TrainId = train.Id,
+                UserId = user.Id
+            };
+
+            var passengers = new List<PassengerDetails>();
+            for (int i = 0; i < ticketCount; i++)
+            {
+                if (i >= passengerDetails.Count)
+                {
+                    passengers.Add(new PassengerDetails { Name = "Passenger " + (i + 1), Age = 0 });
+                }
+                else
+                {
+                    passengers.Add(passengerDetails[i]);
+                }
+            }
+
+            context.Bookings.Add(booking);
+            context.SaveChanges();
+
+            foreach (var passenger in passengers)
+            {
+                passenger.BookingId = booking.Id;
+                context.PassengerDetails.Add(passenger);
+            }
+
+            train.SeatCapacity -= ticketCount;
+            context.TrainDetails.Update(train);
+            context.SaveChanges();
+
+            TempData["Message"] = "Tickets booked successfully!";
+            return RedirectToAction("Welcome");
         }
+
 
         public IActionResult Logout()
         {
