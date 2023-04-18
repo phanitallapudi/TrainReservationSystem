@@ -1,7 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<TrainReservationSystem.Models.TrainDetails>
+
 @{
+    ViewData["Title"] = "Welcome";
 }
 
-<a>Dashboard</a>
+<h1>Welcome</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Origin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Arrival)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatRate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arrival)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatRate)
+            </td>
+            <td>
+                <a asp-action="BookTicket" asp-route-id="@item.Id">Book</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

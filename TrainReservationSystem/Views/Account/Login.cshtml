@@ -1,5 +1,10 @@
 ﻿@model TrainReservationSystem.Models.UserProfileDetails
 
+@if (TempData["Message"] != null)
+{
+    <script>alert('@TempData["Message"]')</script>
+}
+
 @{
     ViewData["Title"] = "Login";
 }

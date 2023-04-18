@@ -175,12 +175,30 @@ namespace TrainReservationSystem.Controllers
                 //return Ok(new { token = tokenHandler.WriteToken(token) });
                 return RedirectToAction("Welcome");
             }
+            else
+            {
+                TempData["Message"] = "Please enter valid account information.";
+                ModelState.Clear();
+                return RedirectToAction("Login");
+            }
 
-            return Unauthorized();
+            return RedirectToAction("Login");
         }
 
 
         public IActionResult Welcome()
+        {
+            var content = context.TrainDetails.ToList();
+            return View(content);
+        }
+
+        public IActionResult BookTicket()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BookTicket(BookingHistory bookingHistory)
         {
             return View();
         }
