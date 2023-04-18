@@ -19,8 +19,13 @@ namespace TrainReservationSystem.Controllers
         //    return DateTime.Now > departureTime;
         //}
 
-        public IActionResult Index()
+        public IActionResult Index(string searchBy, int search)
         {
+            if (searchBy == "TrainId")
+            {
+                return View(context.TrainDetails.Where(x => x.TrainId == search));
+            }
+
             var expiredTrainDetails = context.TrainDetails.Where(td => td.Departure < DateTime.Now).ToList();
 
             // Remove the expired train details from the context

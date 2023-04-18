@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics;
 using TrainReservationSystem.Models;
 
@@ -19,6 +20,7 @@ namespace TrainReservationSystem.Controllers
         }
 
         public IActionResult Privacy()
+                
         {
             return View();
         }

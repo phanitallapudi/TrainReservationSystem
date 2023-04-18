@@ -17,7 +17,17 @@
     </h3>
 </p>
 
-<table class="table">
+<p>
+    @using(Html.BeginForm("Index", "Admin", FormMethod.Get))
+    {
+       <b>Search By:</b> @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text><br />
+       @Html.TextBox("search") <input type="submit" value="search" />
+       
+    }
+</p>
+    
+    <table class="table">
+
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TrainName)
@@ -81,4 +91,5 @@
         </tr>
     }
     }
+    
 
