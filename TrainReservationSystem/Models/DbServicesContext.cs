@@ -14,5 +14,6 @@ namespace TrainReservationSystem.Models
         public DbSet<UserProfileDetails> UserProfileDetails { get; set; }
         public DbSet<OlderTrainDetails> OlderTrainDetails { get; set; }
 
+        public DbSet<PassengerDetails> PassengerDetails { get; set; }
     }
 }
