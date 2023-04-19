@@ -10,7 +10,11 @@ using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using TrainReservationSystem.Models;
+<<<<<<< HEAD
 using System.Windows;
+=======
+using Microsoft.AspNetCore.Session;
+>>>>>>> main
 
 namespace TrainReservationSystem.Controllers
 {
@@ -188,8 +192,16 @@ namespace TrainReservationSystem.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = tokenHandler.WriteToken(token);
                 HttpContext.Session.SetString("JWTtoken", jwtToken);
+<<<<<<< HEAD
                 
+=======
 
+                var loginName = user.Email;
+>>>>>>> main
+
+                HttpContext.Session.SetString("loginKey", loginName);
+
+                TempData["res"] = loginName;
 
                 //return Ok(new { token = tokenHandler.WriteToken(token) });
                 HttpContext.Session.SetInt32("UserId", storedUser.Id);
@@ -201,6 +213,15 @@ namespace TrainReservationSystem.Controllers
                 ModelState.Clear();
                 return RedirectToAction("Login");
             }
+        }
+
+   
+        [HttpGet]
+        [Route("/GetSessionValue")]
+        public string getsessionvalue()
+        {
+           
+            return HttpContext.Session.GetString("loginKey");
         }
 
 
@@ -258,7 +279,9 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();
+           
+            HttpContext.Session.Remove("loginKey");
+            Response.Cookies.Delete(".AspNetCore.Session");
             return RedirectToAction("Login");
         }
 

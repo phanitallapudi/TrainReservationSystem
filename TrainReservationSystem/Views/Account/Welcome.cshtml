@@ -70,3 +70,13 @@
 }
     </tbody>
 </table>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    console.log("ello");
+    fetch('/getSessionValue')
+        .then(response => response.text())
+        .then(data => console.log(data));
+</script>
