@@ -12,8 +12,8 @@ using TrainReservationSystem.Models;
 namespace TrainReservationSystem.Migrations
 {
     [DbContext(typeof(DbServicesContext))]
-    [Migration("20230417115322_updatedatabase")]
-    partial class updatedatabase
+    [Migration("20230418160339_Train")]
+    partial class Train
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,83 @@ namespace TrainReservationSystem.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("TrainReservationSystem.Models.OlderTrainDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Arrival")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Departure")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Origin")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("SeatCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatRate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TrainName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OlderTrainDetails");
+                });
+
+            modelBuilder.Entity("TrainReservationSystem.Models.PassengerDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PassengerDetails");
                 });
 
             modelBuilder.Entity("TrainReservationSystem.Models.TrainDetails", b =>
@@ -144,6 +221,17 @@ namespace TrainReservationSystem.Migrations
                     b.Navigation("TrainDetails");
 
                     b.Navigation("UserProfileDetails");
+                });
+
+            modelBuilder.Entity("TrainReservationSystem.Models.PassengerDetails", b =>
+                {
+                    b.HasOne("TrainReservationSystem.Models.BookingHistory", "BookingHistory")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookingHistory");
                 });
 #pragma warning restore 612, 618
         }
