@@ -34,7 +34,6 @@ namespace TrainReservationSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PNR")
-                        .HasMaxLength(8)
                         .HasColumnType("int");
 
                     b.Property<int?>("TrainId")
@@ -44,7 +43,6 @@ namespace TrainReservationSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ticketCount")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.HasKey("Id");

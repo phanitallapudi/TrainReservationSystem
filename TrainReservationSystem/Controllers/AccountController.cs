@@ -6,9 +6,11 @@ using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using TrainReservationSystem.Models;
+using System.Windows;
 
 namespace TrainReservationSystem.Controllers
 {
@@ -29,10 +31,15 @@ namespace TrainReservationSystem.Controllers
             return context.UserProfileDetails.Any(u => u.Email == name);
         }
 
+        private bool PNRExists(int PNR)
+        {
+            return context.Bookings.Any(u => u.PNR == PNR);
+        }
+
         public static int GeneratePNR()
         {
             Random rnd = new Random();
-            return rnd.Next(100000, 999999);
+            return rnd.Next(10000000, 99999999);
         }
 
 
@@ -106,7 +113,12 @@ namespace TrainReservationSystem.Controllers
                     //    TempData["ConfirmPassword"] = "Password is not matching";
                     //    return RedirectToAction("SignUp");
                     //}
-
+                    if (userProf.Password != userProf.ConfirmPassword)
+                    {
+                        TempData["Message"] = "Passwords are not matching";
+                        ModelState.Clear();
+                        return RedirectToAction("SignUp");
+                    }
                     string hPass = HashPassword(userProf.Password);
                     userProf.Password = hPass;
                     //userProf.ConfirmPassword = hPass;
@@ -176,10 +188,11 @@ namespace TrainReservationSystem.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = tokenHandler.WriteToken(token);
                 HttpContext.Session.SetString("JWTtoken", jwtToken);
-
+                
 
 
                 //return Ok(new { token = tokenHandler.WriteToken(token) });
+                HttpContext.Session.SetInt32("UserId", storedUser.Id);
                 return RedirectToAction("Welcome");
             }
             else
@@ -188,13 +201,12 @@ namespace TrainReservationSystem.Controllers
                 ModelState.Clear();
                 return RedirectToAction("Login");
             }
-
-            return RedirectToAction("Login");
         }
 
 
         public IActionResult Welcome()
         {
+            
             var content = context.TrainDetails.ToList();
             return View(content);
         }
@@ -205,73 +217,42 @@ namespace TrainReservationSystem.Controllers
         }
 
         [HttpPost]
-        [HttpPost]
-        public IActionResult BookTicket(int trainId, int ticketCount, List<PassengerDetails> passengerDetails)
+        [Route("Account/BookTicket/{TrainId}")]
+        public IActionResult BookTicket(int TrainId, BookingHistory bgh)
         {
-            var train = context.TrainDetails.SingleOrDefault(t => t.Id == trainId);
-            if (train == null)
-            {
-                TempData["Message"] = "Invalid train selected.";
-                return RedirectToAction("Welcome");
-            }
+            //try
+            //{
+            BookingHistory bookingHistory = new BookingHistory();
 
-            if (ticketCount > 6)
-            {
-                TempData["Message"] = "You cannot book more than 6 tickets at a time.";
-                return RedirectToAction("Welcome");
-            }
+            var UserId = HttpContext.Session.GetInt32("UserId");
 
-            var user = context.UserProfileDetails.SingleOrDefault(u => u.Email == User.Identity.Name);
-            if (user == null)
+            var UserDetails = context.UserProfileDetails.SingleOrDefault(x => x.Id == UserId);
+            bookingHistory.UserProfileDetails = UserDetails;
+            var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
+            bookingHistory.TrainDetails = trainDetails;
+            bookingHistory.TrainId = trainDetails.Id;
+            bookingHistory.BookingDate = DateTime.UtcNow;
+            bool status = true;
+            int tempPNR = 0;
+            while(status)
             {
-                TempData["Message"] = "User not found.";
-                return RedirectToAction("Login");
-            }
-
-            if (train.SeatCapacity < ticketCount)
-            {
-                TempData["Message"] = "Not enough seats available for the selected train.";
-                return RedirectToAction("Welcome");
-            }
-
-            var booking = new BookingHistory
-            {
-
-                PNR = GeneratePNR(),
-                BookingDate = DateTime.UtcNow,
-                ticketCount = ticketCount,
-                TrainId = train.Id,
-                UserId = user.Id
-            };
-
-            var passengers = new List<PassengerDetails>();
-            for (int i = 0; i < ticketCount; i++)
-            {
-                if (i >= passengerDetails.Count)
+                tempPNR = GeneratePNR();
+                if (!PNRExists(tempPNR))
                 {
-                    passengers.Add(new PassengerDetails { Name = "Passenger " + (i + 1), Age = 0 });
+                    status = false;
                 }
-                else
-                {
-                    passengers.Add(passengerDetails[i]);
-                }
+
             }
-
-            context.Bookings.Add(booking);
+            bookingHistory.PNR = tempPNR;
+            bookingHistory.ticketCount = bgh.ticketCount;
+            context.Bookings.Add(bookingHistory);
             context.SaveChanges();
-
-            foreach (var passenger in passengers)
-            {
-                passenger.BookingId = booking.Id;
-                context.PassengerDetails.Add(passenger);
-            }
-
-            train.SeatCapacity -= ticketCount;
-            context.TrainDetails.Update(train);
-            context.SaveChanges();
-
-            TempData["Message"] = "Tickets booked successfully!";
             return RedirectToAction("Welcome");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Login");
+            //}
         }
 
 

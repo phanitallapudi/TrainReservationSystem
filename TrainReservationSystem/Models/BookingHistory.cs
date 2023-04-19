@@ -8,7 +8,7 @@ namespace TrainReservationSystem.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(8)]
+
         public int PNR { get; set; }
         //[Required]
         //[StringLength(50)]
@@ -19,16 +19,16 @@ namespace TrainReservationSystem.Models
         [Required]
         public DateTime BookingDate { get; set; }
         [Required]
-        [StringLength(50)]
+
         public int ticketCount { get; set; }
 
         public int? TrainId { get; set; }
         public int? UserId { get; set; }
 
         [ForeignKey("TrainId")]
-        public virtual TrainDetails TrainDetails { get; set; }
+        public virtual TrainDetails? TrainDetails { get; set; }
         [ForeignKey("UserId")]
-        public virtual UserProfileDetails UserProfileDetails { get; set; }
+        public virtual UserProfileDetails? UserProfileDetails { get; set; }
 
     }
 }
