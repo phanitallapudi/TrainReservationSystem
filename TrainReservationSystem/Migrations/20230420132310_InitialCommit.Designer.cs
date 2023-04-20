@@ -12,8 +12,8 @@ using TrainReservationSystem.Models;
 namespace TrainReservationSystem.Migrations
 {
     [DbContext(typeof(DbServicesContext))]
-    [Migration("20230419100759_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230420132310_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -111,9 +111,6 @@ namespace TrainReservationSystem.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BookingId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -124,12 +121,10 @@ namespace TrainReservationSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("PNR")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PassengerDetails");
                 });
@@ -219,17 +214,6 @@ namespace TrainReservationSystem.Migrations
                     b.Navigation("TrainDetails");
 
                     b.Navigation("UserProfileDetails");
-                });
-
-            modelBuilder.Entity("TrainReservationSystem.Models.PassengerDetails", b =>
-                {
-                    b.HasOne("TrainReservationSystem.Models.BookingHistory", "BookingHistory")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BookingHistory");
                 });
 #pragma warning restore 612, 618
         }

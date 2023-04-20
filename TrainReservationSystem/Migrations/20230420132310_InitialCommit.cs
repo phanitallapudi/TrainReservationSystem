@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrainReservationSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,6 +29,22 @@ namespace TrainReservationSystem.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OlderTrainDetails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PassengerDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PNR = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PassengerDetails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,29 +110,6 @@ namespace TrainReservationSystem.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PassengerDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BookingId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PassengerDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PassengerDetails_Bookings_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Bookings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_TrainId",
                 table: "Bookings",
@@ -126,24 +119,19 @@ namespace TrainReservationSystem.Migrations
                 name: "IX_Bookings_UserId",
                 table: "Bookings",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PassengerDetails_UserId",
-                table: "PassengerDetails",
-                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Bookings");
+
+            migrationBuilder.DropTable(
                 name: "OlderTrainDetails");
 
             migrationBuilder.DropTable(
                 name: "PassengerDetails");
-
-            migrationBuilder.DropTable(
-                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "TrainDetails");
