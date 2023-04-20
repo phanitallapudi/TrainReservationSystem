@@ -231,7 +231,7 @@ namespace TrainReservationSystem.Controllers
             var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
             bookingHistory.TrainDetails = trainDetails;
             bookingHistory.TrainId = trainDetails.Id;
-            bookingHistory.BookingDate = DateTime.UtcNow;
+            bookingHistory.BookingDate = DateTime.Now;
             bool status = true;
             int tempPNR = 0;
             while(status)
