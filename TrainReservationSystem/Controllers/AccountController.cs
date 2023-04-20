@@ -247,6 +247,9 @@ namespace TrainReservationSystem.Controllers
             bookingHistory.ticketCount = bgh.ticketCount;
             HttpContext.Session.SetInt32("ticketCount", bgh.ticketCount);
             ViewBag.PNR = bookingHistory.PNR;
+
+            trainDetails.SeatCapacity -= bgh.ticketCount;
+
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
             return RedirectToAction("PassengerDetails", new { id = bookingHistory.Id });
