@@ -230,8 +230,8 @@ namespace TrainReservationSystem.Controllers
             bookingHistory.UserProfileDetails = UserDetails;
             var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
             bookingHistory.TrainDetails = trainDetails;
-            bookingHistory.TrainId = trainDetails.Id;
-            bookingHistory.BookingDate = DateTime.UtcNow;
+            //bookingHistory.TrainId = trainDetails.Id;
+            bookingHistory.BookingDate = DateTime.Now;
             bool status = true;
             int tempPNR = 0;
             while(status)
@@ -245,14 +245,59 @@ namespace TrainReservationSystem.Controllers
             }
             bookingHistory.PNR = tempPNR;
             bookingHistory.ticketCount = bgh.ticketCount;
+            HttpContext.Session.SetInt32("ticketCount", bgh.ticketCount);
+            ViewBag.PNR = bookingHistory.PNR;
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
-            return RedirectToAction("Welcome");
+            return RedirectToAction("PassengerDetails", new { id = bookingHistory.Id });
             //}
             //catch (Exception ex)
             //{
             //    return RedirectToAction("Login");
             //}
+        }
+        [HttpGet]
+        public IActionResult PassengerDetails(int id)
+        {
+            var bookingHistory = context.Bookings.SingleOrDefault(b => b.Id == id);
+
+            if (bookingHistory == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var passengerList = new List<PassengerDetails>();
+
+            for (int i = 0; i < bookingHistory.ticketCount; i++)
+            {
+                passengerList.Add(new PassengerDetails());
+            }
+
+            ViewBag.PNR = bookingHistory.PNR;
+
+            return View(passengerList);
+        }
+
+        [HttpPost]
+        public IActionResult PassengerDetails(List<PassengerDetails> passengerDetails)
+        {
+            if (passengerDetails == null)
+            {
+                return View("Welcome");
+            }
+
+            int pnr;
+            if (int.TryParse(HttpContext.Request.Form["PNR"], out pnr))
+            {
+                foreach (var member in passengerDetails)
+                {
+                    member.PNR = pnr;
+                }
+            }
+
+            context.PassengerDetails.AddRange(passengerDetails);
+            context.SaveChanges();
+            return RedirectToAction("Welcome");
         }
 
 

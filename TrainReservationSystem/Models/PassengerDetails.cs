@@ -16,9 +16,7 @@ namespace TrainReservationSystem.Models
         [StringLength(50)]
         public string Gender { get; set; }
 
-        public int? BookingId { get; set; }
+        public int PNR { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual BookingHistory BookingHistory { get; set; }
     }
 }
