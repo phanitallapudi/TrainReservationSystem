@@ -19,15 +19,15 @@ namespace TrainReservationSystem.Controllers
             if (searchBy == "TrainId")
             {
                 int number = Convert.ToInt32(search);
-                return View(context.TrainDetails.Where(x => x.TrainId == number));
+                return View(context.TrainDetails.Where(x => string.IsNullOrEmpty(search) ? true : (x.TrainId == number)));
             }
             else if (searchBy == "Origin")
             {
-                return View(context.TrainDetails.Where(x => x.Origin == search));
+                return View(context.TrainDetails.Where(x => x.Origin.StartsWith(search) || search == null));
             }
             else if (searchBy == "Destination")
             {
-                return View(context.TrainDetails.Where(x => x.Destination == search));
+                return View(context.TrainDetails.Where(x => x.Destination.StartsWith(search) || search == null));
             }
             else
             {
