@@ -1,4 +1,10 @@
-﻿
+﻿@model int
+
+@if (TempData["Message"] != null)
+{
+    <script>alert('@TempData["Message"]')</script>
+}
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,8 +15,11 @@
     <a href="Account/SignUp">Sign Up</a>
     <a href="Account/Login">Login</a>
 
+    <form method="post" action="Home/CheckPNR">
+        <label for="pnr">Enter PNR number:</label>
+        <input type="text" id="pnr" name="pnr" />
+        <button type="submit">Check</button>
+    </form>
 
 </div>
 
-
-</table>
