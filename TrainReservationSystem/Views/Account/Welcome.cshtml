@@ -6,6 +6,44 @@
 
 <h1>Welcome</h1>
 
+
+<p>
+    @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
+    {
+        <b>Search By:</b>
+
+        @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text>
+        @Html.RadioButton("searchBy", "Origin") <text>Origin</text>
+        @Html.RadioButton("searchBy", "Destination") <text>Destination</text>
+
+        <br />
+
+        
+        @Html.TextBox("search")
+        
+
+        <input type="submit" value="search" />
+
+    }
+</p>
+
+<p>
+    @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
+    {
+        <b>Search By:</b>
+
+        @Html.RadioButton("searchBy", "OriginDestination") <text>Origin and Destination</text>
+
+        <br />
+
+        <b>Origin:</b> @Html.TextBox("origin") <b>Destination:</b> @Html.TextBox("destination")
+        
+
+        <input type="submit" value="search" />
+
+    }
+</p>
+
 <table class="table">
     <thead>
         <tr>
