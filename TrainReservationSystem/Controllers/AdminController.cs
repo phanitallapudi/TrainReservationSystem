@@ -82,7 +82,7 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Edit(int id)
         {
-            var elem = context.TrainDetails.SingleOrDefault(model => model.Id == id);
+            var elem = context.TrainDetails.Find(id);
             if (elem == null)
             {
                 return View();
@@ -91,23 +91,24 @@ namespace TrainReservationSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(TrainDetails stud)
+        public IActionResult Edit(TrainDetails trainDetails)
         {
             if (!ModelState.IsValid)
             {
-                return View(stud);
+                return View(trainDetails);
             }
-            context.Entry(stud).State = EntityState.Modified;
-            int change = context.SaveChanges();
 
-            if (change > 0)
+            context.Update(trainDetails);
+            int changes = context.SaveChanges();
+
+            if (changes > 0)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.EditMdsg = ("<script>alert('Error occured')</script>");
-                return View(stud);
+                ViewBag.EditMdsg = ("<script>alert('Error occurred')</script>");
+                return View(trainDetails);
             }
         }
         public ActionResult InfoEdit(int id)
