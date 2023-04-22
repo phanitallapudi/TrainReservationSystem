@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TrainReservationSystem.Models.BookingHistory>
+
+@{
+    ViewData["Title"] = "BookedTicketHistory";
+}
+
+
+<form method="post" action="~/Account/PNRViewAccount" class="my-4">
+    <div class="form-group">
+        <label for="pnr">Enter PNR number:</label>
+        <div class="input-group">
+            <input type="text" id="pnr" name="pnr" class="form-control">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Check</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<h1>BookedTicketHistory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PNR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ticketCount)
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.TrainDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserProfileDetails)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PNR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticketCount)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.TrainDetails.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfileDetails.ConfirmPassword)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

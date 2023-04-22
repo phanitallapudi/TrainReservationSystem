@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/BookedTicketHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxCb29rZWRUaWNrZXRIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/BookTicket.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxCb29rVGlja2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -26,6 +30,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/PassengerDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQYXNzZW5nZXJEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/PNRViewAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQTlJWaWV3QWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/SignUp.cshtml]
