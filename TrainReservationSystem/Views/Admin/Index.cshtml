@@ -1,100 +1,70 @@
 ﻿@model IEnumerable<TrainReservationSystem.Models.TrainDetails>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
-<a href="Admin/Create">Add Train</a>
-
-
-
-
-
-<p>
-    <h3>
-        Train Information
-    </h3>
-</p>
-
-<p>
+<h2>Train Information</h2>
+<div class="d-flex justify-content-between align-items-center">
+    <a href="Admin/Create" class="btn btn-primary">Add Train</a>
     @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
     {
-        <b>Search By:</b> 
-        
-        @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text>
-        @Html.RadioButton("searchBy", "Origin") <text>Origin</text>
-        @Html.RadioButton("searchBy", "Destination") <text>Destination</text>
-
-
-        <br />
-        @Html.TextBox("search") <input type="submit" value="search" />
-
+        <div class="form-group mb-0">
+            <label class="control-label">Search By:</label>
+            <div>
+                @Html.RadioButton("searchBy", "TrainId", true) <span class="radio-text">Train Id</span>
+                @Html.RadioButton("searchBy", "Origin") <span class="radio-text">Origin</span>
+                @Html.RadioButton("searchBy", "Destination") <span class="radio-text">Destination</span>
+            </div>
+        </div>
+        <div class="form-group mb-0 ml-2">
+            <label class="control-label">Search:</label>
+            <div class="d-flex">
+                @Html.TextBox("search", null, new { @class = "form-control mr-2", placeholder = "Enter search term" })
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
     }
-</p>
+</div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TrainName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TrainId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Origin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Departure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SeatCapacity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SeatRate)
-        </th>
-        <th></th>
-    </tr>
-    @if (Model != null)
-    {
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Origin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Destination)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Arrival)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatCapacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatRate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "InfoEdit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "InfoDelete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-    }
-
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.TrainName)</th>
+                <th>@Html.DisplayNameFor(model => model.TrainId)</th>
+                <th>@Html.DisplayNameFor(model => model.Origin)</th>
+                <th>@Html.DisplayNameFor(model => model.Destination)</th>
+                <th>@Html.DisplayNameFor(model => model.Departure)</th>
+                <th>@Html.DisplayNameFor(model => model.Arrival)</th>
+                <th>@Html.DisplayNameFor(model => model.SeatCapacity)</th>
+                <th>@Html.DisplayNameFor(model => model.SeatRate)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TrainName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TrainId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Origin)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Destination)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Departure)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Arrival)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SeatCapacity)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SeatRate)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "InfoEdit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" }) |
+                            @Html.ActionLink("Delete", "InfoDelete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">No records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
