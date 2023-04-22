@@ -206,10 +206,28 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Welcome()
         {
-            
-            var content = context.TrainDetails.ToList();
-            return View(content);
-        }
+			var bookings = context.Bookings.ToList();
+			List<BookingHistory> bookingHistory = new List<BookingHistory>();
+
+			for (int i = bookings.Count - 1; i >= 0; i--)
+			{
+				var passengerDetails = context.PassengerDetails.Where(x => x.PNR == bookings[i].PNR).ToList();
+				if (passengerDetails.Count == 0)
+				{
+					var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == bookings[i].TrainId);
+					trainDetails.SeatCapacity += bookings[i].ticketCount;
+
+					bookingHistory.Add(bookings[i]);
+					bookings.RemoveAt(i);
+				}
+			}
+
+			context.Bookings.RemoveRange(bookingHistory);
+			context.SaveChanges();
+
+			var content = context.TrainDetails.ToList();
+			return View(content);
+		}
 
         public IActionResult BookTicket()
         {
