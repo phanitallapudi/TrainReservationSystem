@@ -1,108 +1,70 @@
 ﻿@model IEnumerable<TrainReservationSystem.Models.TrainDetails>
 
-@{
-    ViewBag.Title = "Train Information";
-}
-
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-sm-6">
-            <a href="Admin/Create" class="btn btn-primary">Add Train</a>
+<h2>Train Information</h2>
+<div class="d-flex justify-content-between align-items-center">
+    <a href="Admin/Create" class="btn btn-primary">Add Train</a>
+    @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+    {
+        <div class="form-group mb-0">
+            <label class="control-label">Search By:</label>
+            <div>
+                @Html.RadioButton("searchBy", "TrainId", true) <span class="radio-text">Train Id</span>
+                @Html.RadioButton("searchBy", "Origin") <span class="radio-text">Origin</span>
+                @Html.RadioButton("searchBy", "Destination") <span class="radio-text">Destination</span>
+            </div>
         </div>
-        <div class="col-sm-6">
-            @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
-            {
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Search By:</label>
-                    <div class="col-sm-9">
-                        <div class="form-check-inline">
-                            @Html.RadioButton("searchBy", "TrainId", true, new { @class = "form-check-input" })
-                            <label class="form-check-label">Train Id</label>
-                        </div>
-                        <div class="form-check-inline">
-                            @Html.RadioButton("searchBy", "Origin", null, new { @class = "form-check-input" })
-                            <label class="form-check-label">Origin</label>
-                        </div>
-                        <div class="form-check-inline">
-                            @Html.RadioButton("searchBy", "Destination", null, new { @class = "form-check-input" })
-                            <label class="form-check-label">Destination</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-9 offset-sm-3">
-                        @Html.TextBox("search", null, new { @class = "form-control" })
-                        <button type="submit" class="btn btn-primary ml-2">Search</button>
-                    </div>
-                </div>
-            }
+        <div class="form-group mb-0 ml-2">
+            <label class="control-label">Search:</label>
+            <div class="d-flex">
+                @Html.TextBox("search", null, new { @class = "form-control mr-2", placeholder = "Enter search term" })
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
         </div>
-    </div>
-    <hr />
+    }
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TrainName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TrainId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Origin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Departure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SeatCapacity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SeatRate)
-        </th>
-        <th></th>
-    </tr>
-    @if (Model != null)
-    {
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Origin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Destination)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Arrival)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatCapacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatRate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "InfoEdit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "InfoDelete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-    }
-
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.TrainName)</th>
+                <th>@Html.DisplayNameFor(model => model.TrainId)</th>
+                <th>@Html.DisplayNameFor(model => model.Origin)</th>
+                <th>@Html.DisplayNameFor(model => model.Destination)</th>
+                <th>@Html.DisplayNameFor(model => model.Departure)</th>
+                <th>@Html.DisplayNameFor(model => model.Arrival)</th>
+                <th>@Html.DisplayNameFor(model => model.SeatCapacity)</th>
+                <th>@Html.DisplayNameFor(model => model.SeatRate)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TrainName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TrainId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Origin)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Destination)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Departure)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Arrival)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SeatCapacity)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SeatRate)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "InfoEdit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" }) |
+                            @Html.ActionLink("Delete", "InfoDelete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">No records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
