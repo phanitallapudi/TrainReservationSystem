@@ -7,42 +7,49 @@
 <h1>Welcome</h1>
 
 
-<p>
-    @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
-    {
-        <b>Search By:</b>
-
-        @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text>
-        @Html.RadioButton("searchBy", "Origin") <text>Origin</text>
-        @Html.RadioButton("searchBy", "Destination") <text>Destination</text>
-
-        <br />
-
-        
-        @Html.TextBox("search")
-        
-
-        <input type="submit" value="search" />
-
-    }
-</p>
-
-<p>
-    @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
-    {
-        <b>Search By:</b>
-
-        @Html.RadioButton("searchBy", "OriginDestination") <text>Origin and Destination</text>
-
-        <br />
-
-        <b>Origin:</b> @Html.TextBox("origin") <b>Destination:</b> @Html.TextBox("destination")
-        
-
-        <input type="submit" value="search" />
-
-    }
-</p>
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
+        {
+            <div class="form-group">
+                <b>Search By:</b>
+                <br />
+                @Html.RadioButton("searchBy", "TrainId", true) <text>Train Id</text>
+                @Html.RadioButton("searchBy", "Origin") <text>Origin</text>
+                @Html.RadioButton("searchBy", "Destination") <text>Destination</text>
+            </div>
+            <div class="form-group">
+                @Html.TextBox("search", null, new { @class = "form-control", placeholder = "Enter Search Term" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        @using (Html.BeginForm("Welcome", "Account", FormMethod.Get))
+        {
+            <div class="form-group">
+                <b>Search By:</b>
+                <br />
+                @Html.RadioButton("searchBy", "OriginDestination", true) <text>Origin and Destination</text>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Origin:</b> @Html.TextBox("origin", null, new { @class = "form-control", placeholder = "Enter Origin" })
+                    </div>
+                    <div class="col-md-6">
+                        <b>Destination:</b> @Html.TextBox("destination", null, new { @class = "form-control", placeholder = "Enter Destination" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
 
 <table class="table">
     <thead>
