@@ -224,29 +224,30 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Welcome(string searchBy, string search, string origin, string destination)
         {
-			if (searchBy == "TrainId")
-			{
-				int number = Convert.ToInt32(search);
-				return View(context.TrainDetails.Where(x => string.IsNullOrEmpty(search) ? true : (x.TrainId == number)));
-			}
-			else if (searchBy == "Origin")
-			{
-				return View(context.TrainDetails.Where(x => x.Origin.StartsWith(search) || search == null));
-			}
-			else if (searchBy == "Destination")
-			{
-				return View(context.TrainDetails.Where(x => x.Destination.StartsWith(search) || search == null));
-			}
-			else if (searchBy == "OriginDestination")
-			{
-				return View(context.TrainDetails.Where(x => x.Origin == origin && x.Destination == destination));
-			}
-			else
-			{
-				var content = context.TrainDetails.ToList();
-				return View(content);
-			}
-		}
+            var trainDetails = context.TrainDetails.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                switch (searchBy)
+                {
+                    case "TrainId":
+                        trainDetails = trainDetails.Where(x => x.TrainId == int.Parse(search));
+                        break;
+                    case "Origin":
+                        trainDetails = trainDetails.Where(x => x.Origin.StartsWith(search));
+                        break;
+                    case "Destination":
+                        trainDetails = trainDetails.Where(x => x.Destination.StartsWith(search));
+                        break;
+                }
+            }
+            else if (!string.IsNullOrEmpty(origin) && !string.IsNullOrEmpty(destination))
+            {
+                trainDetails = trainDetails.Where(x => x.Origin == origin && x.Destination == destination);
+            }
+
+            return View(trainDetails.ToList());
+        }
 
         public IActionResult BookTicket()
         {
@@ -257,8 +258,6 @@ namespace TrainReservationSystem.Controllers
         [Route("Account/BookTicket/{TrainId}")]
         public IActionResult BookTicket(int TrainId, BookingHistory bgh)
         {
-            //try
-            //{
             BookingHistory bookingHistory = new BookingHistory();
 
             var UserId = HttpContext.Session.GetInt32("UserId");
@@ -267,7 +266,6 @@ namespace TrainReservationSystem.Controllers
             bookingHistory.UserProfileDetails = UserDetails;
             var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
             bookingHistory.TrainDetails = trainDetails;
-            //bookingHistory.TrainId = trainDetails.Id;
             bookingHistory.BookingDate = DateTime.Now;
             bool status = true;
             int tempPNR = 0;
@@ -290,11 +288,6 @@ namespace TrainReservationSystem.Controllers
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
             return RedirectToAction("PassengerDetails", new { id = bookingHistory.Id });
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Login");
-            //}
         }
         [HttpGet]
         public IActionResult PassengerDetails(int id)
@@ -345,54 +338,6 @@ namespace TrainReservationSystem.Controllers
             var UserId = HttpContext.Session.GetInt32("UserId");
             return View(context.Bookings.Where(x => x.UserId == UserId));
         }
-
-        //[HttpPost]
-        //public IActionResult BookedTicketHistory(int pnr)
-        //{
-        //    PNR_ClassMembers pNR_Main_ClassMembers = new PNR_ClassMembers();
-
-        //    List<PNR_PassengerDetails> pNR_Passengers = new List<PNR_PassengerDetails>();
-
-        //    var bookingHistory = context.Bookings.FirstOrDefault(b => b.PNR == pnr);
-
-        //    if (bookingHistory == null)
-        //    {
-        //        TempData["Message"] = "Please enter a valid PNR number.";
-        //        return RedirectToAction("BookedTicketHistory");
-
-        //    }
-
-        //    var trainDetails = context.TrainDetails.FirstOrDefault(b => b.Id == bookingHistory.TrainId);
-        //    var bookingDetails = context.Bookings.FirstOrDefault(b => b.PNR == pnr);
-        //    var temp_pNR_Passengers = context.PassengerDetails.Where(b => b.PNR == pnr).ToList();
-
-        //    foreach (var item in temp_pNR_Passengers)
-        //    {
-        //        PNR_PassengerDetails member = new PNR_PassengerDetails()
-        //        {
-        //            Name = item.Name,
-        //            Age = item.Age,
-        //            Gender = item.Gender
-        //        };
-        //        pNR_Passengers.Add(member);
-        //    }
-
-        //    pNR_Main_ClassMembers.PNR = pnr;
-
-        //    pNR_Main_ClassMembers.PassengerDetails = pNR_Passengers;
-        //    pNR_Main_ClassMembers.TrainName = trainDetails.TrainName;
-        //    pNR_Main_ClassMembers.TrainId = trainDetails.TrainId;
-        //    pNR_Main_ClassMembers.Origin = trainDetails.Origin;
-        //    pNR_Main_ClassMembers.Destination = trainDetails.Destination;
-        //    pNR_Main_ClassMembers.Departure = trainDetails.Departure;
-        //    pNR_Main_ClassMembers.Arrival = trainDetails.Arrival;
-
-        //    pNR_Main_ClassMembers.BookingDate = bookingDetails.BookingDate;
-        //    pNR_Main_ClassMembers.TicketCount = bookingDetails.ticketCount;
-
-
-        //    return View(pNR_Main_ClassMembers);
-        //}
 
         public IActionResult PNRViewAccount()
         {
