@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<TrainReservationSystem.Models.BookingHistory>
 
+@if (TempData["Message"] != null)
+{
+    <script>alert('@TempData["Message"]')</script>
+}
+
 @{
     ViewData["Title"] = "BookedTicketHistory";
 }
