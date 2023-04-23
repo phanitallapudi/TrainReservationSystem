@@ -206,6 +206,11 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Welcome(string searchBy, string search, string origin, string destination)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             var bookings = context.Bookings.ToList();
             var expiredBk = context.Bookings.ToList();
             List<BookingHistory> bookingHistory = new List<BookingHistory>();
