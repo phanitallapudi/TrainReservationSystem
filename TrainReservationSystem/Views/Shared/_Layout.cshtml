@@ -31,13 +31,24 @@
                     <ul class="navbar-nav">
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null)
                         {
-                            <form class="form-inline" asp-controller="Account" asp-action="BookedTicketHistory" method="post">
-                                <button type="submit" class="nav-link btn btn-link text-dark">Bookings</button>
-                            </form>
-                            <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
-                                <input type="hidden" name="csrfToken" value="@Html.AntiForgeryToken()" />
-                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                            </form>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <form class="form-inline" asp-controller="Account" asp-action="BookedTicketHistory" method="post">
+                                            <button type="submit" class="dropdown-item">Bookings</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                            <input type="hidden" name="csrfToken" value="@Html.AntiForgeryToken()" />
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         }
                         else
                         {
