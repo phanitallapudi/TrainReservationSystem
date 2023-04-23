@@ -117,7 +117,7 @@ namespace TrainReservationSystem.Controllers
                     if (userProf.Password != userProf.ConfirmPassword)
                     {
                         TempData["Message"] = "Passwords are not matching";
-                        ModelState.Clear();
+                        //ModelState.Clear();
                         return RedirectToAction("SignUp");
                     }
                     string hPass = HashPassword(userProf.Password);
@@ -142,7 +142,7 @@ namespace TrainReservationSystem.Controllers
                 else
                 {
                     TempData["Message"] = "Please enter a valid email address.";
-                    ModelState.Clear();
+                    //ModelState.Clear();
                     return RedirectToAction("SignUp");
                 }
             }
@@ -315,6 +315,17 @@ namespace TrainReservationSystem.Controllers
         [Route("Account/BookTicket/{TrainId}")]
         public IActionResult BookTicket(int TrainId, BookingHistory bgh)
         {
+            if (bgh.ticketCount > 6)
+            {
+                TempData["TicketCountG6"] = "Cannot book more than 6 tickets ";
+                return RedirectToAction("Welcome");
+            }
+            else if(bgh.ticketCount < 1)
+            {
+                TempData["TicketCountG6"] = "Please enter valid ticket count ";
+                return RedirectToAction("Welcome");
+            }
+
             BookingHistory bookingHistory = new BookingHistory();
 
             var UserId = HttpContext.Session.GetInt32("UserId");

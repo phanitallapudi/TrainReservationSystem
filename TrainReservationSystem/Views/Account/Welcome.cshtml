@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<TrainReservationSystem.Models.TrainDetails>
 
+@if (TempData["TicketCountG6"] != null)
+{
+    <div class="alert alert-success" role="alert">@TempData["TicketCountG6"]</div>
+}
 @{
     ViewData["Title"] = "Welcome";
 }
