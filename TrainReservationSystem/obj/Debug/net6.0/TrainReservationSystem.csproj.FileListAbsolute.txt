@@ -287,3 +287,8 @@ D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainR
 D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\obj\Debug\net6.0\TrainReservationSystem.pdb
 D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\obj\Debug\net6.0\TrainReservationSystem.genruntimeconfig.cache
 D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\obj\Debug\net6.0\ref\TrainReservationSystem.dll
+D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\bin\Debug\net6.0\MailKit.dll
+D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\bin\Debug\net6.0\MimeKit.dll
+D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

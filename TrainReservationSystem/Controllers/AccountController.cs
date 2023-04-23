@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using TrainReservationSystem.Models;
 using System.Windows;
+using TrainReservationSystem.Services;
 
 namespace TrainReservationSystem.Controllers
 {
@@ -319,6 +320,7 @@ namespace TrainReservationSystem.Controllers
             var UserId = HttpContext.Session.GetInt32("UserId");
 
             var UserDetails = context.UserProfileDetails.SingleOrDefault(x => x.Id == UserId);
+            HttpContext.Session.SetString("UserEmail", UserDetails.Email);
             bookingHistory.UserProfileDetails = UserDetails;
             var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
             bookingHistory.TrainDetails = trainDetails;
@@ -343,6 +345,14 @@ namespace TrainReservationSystem.Controllers
 
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
+
+            //var emailAddress = HttpContext.Session.GetString("UserEmail");
+
+            //string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR}";
+
+            //EmailService em = new EmailService();
+            //em.SendEmail(emailBody, emailAddress);
+
             return RedirectToAction("PassengerDetails", new { id = bookingHistory.Id });
         }
         [HttpGet]
@@ -384,8 +394,13 @@ namespace TrainReservationSystem.Controllers
                 }
             }
 
+
+
             context.PassengerDetails.AddRange(passengerDetails);
             context.SaveChanges();
+
+
+
             return RedirectToAction("Welcome");
         }
 
