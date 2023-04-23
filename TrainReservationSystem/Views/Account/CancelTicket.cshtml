@@ -1,0 +1,10 @@
+﻿@model BookingHistory
+
+<h2>Cancel Ticket</h2>
+
+<p>Are you sure you want to cancel your ticket with PNR number @Model.PNR?</p>
+
+<form asp-controller="Account" asp-action="CancelTicket" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Yes, cancel my ticket</button>
+    <a href="@Url.Action("BookedTicketHistory", "Account")" class="btn btn-primary">No, go back</a>
+</form>
