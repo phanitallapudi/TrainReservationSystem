@@ -18,6 +18,8 @@ builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<DbServicesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnectionString")));
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
