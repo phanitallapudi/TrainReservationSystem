@@ -236,7 +236,7 @@ namespace TrainReservationSystem.Controllers
                 for (int i = expiredBk.Count - 1; i >= 0; i--)
                 {
                     var tempTrainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == expiredBk[i].TrainId);
-                    if (tempTrainDetails == null)
+                    if (tempTrainDetails == null || tempTrainDetails.Departure < DateTime.Now)
                     {
                         expiredBookings.Add(expiredBk[i]);
                         expiredBk.RemoveAt(i);
