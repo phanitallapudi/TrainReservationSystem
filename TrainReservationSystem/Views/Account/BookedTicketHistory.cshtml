@@ -36,12 +36,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ticketCount)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.TrainDetails)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserProfileDetails)
-            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -57,17 +51,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ticketCount)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.TrainDetails.Destination)
-            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserProfileDetails.ConfirmPassword)
+                <form method="post" action="@Url.Action("CancelTicket", new { id = item.Id })">
+                    <input type="hidden" name="pnr" value="@item.PNR" />
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ticket?')">Cancel</button>
+                </form>
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>*@
+
         </tr>
 }
     </tbody>

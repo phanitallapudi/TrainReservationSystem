@@ -462,6 +462,33 @@ namespace TrainReservationSystem.Controllers
             return View(pNR_Main_ClassMembers);
         }
 
+        [HttpPost]
+        public IActionResult CancelTicket(int id)
+        {
+            var bookingHistory = context.Bookings.SingleOrDefault(b => b.Id == id);
+
+            if (bookingHistory == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == bookingHistory.TrainId);
+
+            // Increase the seat capacity of the train
+            trainDetails.SeatCapacity += bookingHistory.ticketCount;
+
+            // Remove passenger details associated with the booking
+            var passengerDetails = context.PassengerDetails.Where(p => p.PNR == bookingHistory.PNR).ToList();
+            context.PassengerDetails.RemoveRange(passengerDetails);
+
+            // Remove the booking
+            context.Bookings.Remove(bookingHistory);
+
+            context.SaveChanges();
+
+            return RedirectToAction("BookedTicketHistory");
+        }
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
