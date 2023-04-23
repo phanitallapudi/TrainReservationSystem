@@ -17,6 +17,74 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Index()
         {
+            var bookings = context.Bookings.ToList();
+            var expiredBk = context.Bookings.ToList();
+            List<BookingHistory> bookingHistory = new List<BookingHistory>();
+            List<BookingHistory> expiredBookings = new List<BookingHistory>();
+
+            //removes failed bookings
+            if (bookings.Count != 0)
+            {
+                for (int i = bookings.Count - 1; i >= 0; i--)
+                {
+                    var passengerDetails = context.PassengerDetails.Where(x => x.PNR == bookings[i].PNR).ToList();
+                    if (passengerDetails.Count == 0)
+                    {
+                        var trainDetails_delete = context.TrainDetails.SingleOrDefault(x => x.Id == bookings[i].TrainId);
+                        trainDetails_delete.SeatCapacity += bookings[i].ticketCount;
+
+                        bookingHistory.Add(bookings[i]);
+                        bookings.RemoveAt(i);
+                    }
+                    context.Bookings.RemoveRange(bookingHistory);
+                    context.SaveChanges();
+                }
+            }
+
+            //removes expired bookings i.e., train which are already left
+            if (expiredBk.Count != 0)
+            {
+                for (int i = expiredBk.Count - 1; i >= 0; i--)
+                {
+                    var tempTrainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == expiredBk[i].TrainId);
+                    if (tempTrainDetails == null)
+                    {
+                        expiredBookings.Add(expiredBk[i]);
+                        expiredBk.RemoveAt(i);
+                    }
+                    context.Bookings.RemoveRange(expiredBookings);
+                    context.SaveChanges();
+                }
+            }
+
+            //removes expired train details i.e., train which are already left
+
+            var expiredTrainDetails = context.TrainDetails.Where(td => td.Departure < DateTime.Now).ToList();
+
+            foreach (var expiredTrainDetail in expiredTrainDetails)
+            {
+                var tempBookings = context.Bookings.Where(b => b.TrainId == expiredTrainDetail.TrainId).ToList();
+                context.Bookings.RemoveRange(tempBookings);
+            }
+
+            var olderTrainDetails = expiredTrainDetails
+                .Select(td => new OlderTrainDetails
+                {
+                    TrainName = td.TrainName,
+                    TrainId = td.TrainId,
+                    Origin = td.Origin,
+                    Destination = td.Destination,
+                    Departure = td.Departure,
+                    Arrival = td.Arrival,
+                    SeatCapacity = td.SeatCapacity,
+                    SeatRate = td.SeatRate
+                })
+                .ToList();
+
+            // Add the new objects to the context and remove the expired train details
+            context.OlderTrainDetails.AddRange(olderTrainDetails);
+            context.TrainDetails.RemoveRange(expiredTrainDetails);
+            context.SaveChanges();
             return View();
         }
 
