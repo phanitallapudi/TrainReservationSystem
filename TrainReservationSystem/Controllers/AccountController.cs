@@ -366,6 +366,8 @@ namespace TrainReservationSystem.Controllers
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
 
+            //Code for email alerts to the user
+
             //var emailAddress = HttpContext.Session.GetString("UserEmail");
 
             //string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR}";
@@ -419,7 +421,7 @@ namespace TrainReservationSystem.Controllers
             context.PassengerDetails.AddRange(passengerDetails);
             context.SaveChanges();
 
-
+            TempData["Success"] = "Ticket booking successfull";
 
             return RedirectToAction("Welcome");
         }
