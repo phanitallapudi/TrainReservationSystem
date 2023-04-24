@@ -37,6 +37,11 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
+                                        <form class="form-inline" asp-controller="Account" asp-action="Welcome" method="post">
+                                            <button type="submit" class="dropdown-item">Dashboard</button>
+                                        </form>
+                                    </li>
+                                    <li>
                                         <form class="form-inline" asp-controller="Account" asp-action="BookedTicketHistory" method="post">
                                             <button type="submit" class="dropdown-item">Bookings</button>
                                         </form>
