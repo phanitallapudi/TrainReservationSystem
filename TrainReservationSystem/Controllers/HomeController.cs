@@ -17,6 +17,13 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult Index()
         {
+            var id = HttpContext.Session.GetInt32("UserId");
+            if (id != null)
+            {
+                return RedirectToAction("Welcome", "Account");
+            }
+
+
             var bookings = context.Bookings.ToList();
             var expiredBk = context.Bookings.ToList();
             List<BookingHistory> bookingHistory = new List<BookingHistory>();

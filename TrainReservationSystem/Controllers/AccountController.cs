@@ -198,7 +198,9 @@ namespace TrainReservationSystem.Controllers
 
                 //return Ok(new { token = tokenHandler.WriteToken(token) });
                 HttpContext.Session.SetInt32("UserId", storedUser.Id);
-                return RedirectToAction("Welcome");
+				HttpContext.Session.SetString("UserEmail", storedUser.Email);
+
+				return RedirectToAction("Welcome");
             }
             else
             {
@@ -232,9 +234,14 @@ namespace TrainReservationSystem.Controllers
                         var trainDetails_delete = context.TrainDetails.SingleOrDefault(x => x.Id == bookings[i].TrainId);
                         trainDetails_delete.SeatCapacity += bookings[i].ticketCount;
 
+                        var userProf = context.UserProfileDetails.SingleOrDefault(x => x.Id == bookings[i].UserId);
+						string emailBody = $"Booking failed for the PNR number {bookings[i].PNR}, here is the train details for the bookings \nTrain Details \nTrain Number : {trainDetails_delete.TrainId}\nTrain Name : {trainDetails_delete.TrainName}\n Travel Date : {trainDetails_delete.Departure} => {trainDetails_delete.Arrival}\nTickets : {bookings[i].ticketCount}";
+
+						EmailService em = new EmailService();
+						em.SendEmail(emailBody, userProf.Email);
                         bookingHistory.Add(bookings[i]);
                         bookings.RemoveAt(i);
-                    }
+					}
                     context.Bookings.RemoveRange(bookingHistory);
                     context.SaveChanges();
                 }
