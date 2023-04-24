@@ -1,5 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
+﻿using System.Net.Mail;
 
 namespace TrainReservationSystem.Services
 {
@@ -7,19 +6,23 @@ namespace TrainReservationSystem.Services
     {
         public void SendEmail(string body, string emailAddress)
         {
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("werner9@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse(emailAddress));
+            string smtpServer = "smtp.gmail.com";
+            int smtpPort = 587;
+            string smtpUsername = "testerrone5@gmail.com";
+            string smtpPassword = "zaqrrpqsyvczpgpy";
 
-            email.Subject = "Train ticket confirmation";
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = body };
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("testerrone5@gmail.com");
+            message.To.Add(emailAddress);
+            message.Subject = "Train Booking Notification";
+            message.Body = body;
+			;
 
-            using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
-            smtp.Authenticate("werner9@ethereal.email", "pmrU3VwJS5BVZ5bhTd");
-            smtp.Send(email);
-            smtp.Disconnect(true);
+			SmtpClient client = new SmtpClient(smtpServer, smtpPort);
+            client.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+            client.EnableSsl = true;
 
+            client.Send(message);
         }
     }
 }
