@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using TrainReservationSystem.Models;
 using System.Windows;
 using TrainReservationSystem.Services;
+using System.Net.Mail;
 
 namespace TrainReservationSystem.Controllers
 {
@@ -366,14 +367,13 @@ namespace TrainReservationSystem.Controllers
             context.Bookings.Add(bookingHistory);
             context.SaveChanges();
 
-            //Code for email alerts to the user
 
-            //var emailAddress = HttpContext.Session.GetString("UserEmail");
+            var emailAddress = HttpContext.Session.GetString("UserEmail");
 
-            //string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR}";
+            string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} => {trainDetails.Arrival}\nTickets : {bgh.ticketCount}";
 
-            //EmailService em = new EmailService();
-            //em.SendEmail(emailBody, emailAddress);
+            EmailService em = new EmailService();
+            em.SendEmail(emailBody, emailAddress);
 
             return RedirectToAction("PassengerDetails", new { id = bookingHistory.Id });
         }
@@ -503,8 +503,15 @@ namespace TrainReservationSystem.Controllers
             var passengerDetails = context.PassengerDetails.Where(p => p.PNR == bookingHistory.PNR).ToList();
             context.PassengerDetails.RemoveRange(passengerDetails);
 
-            // Remove the booking
-            context.Bookings.Remove(bookingHistory);
+            var UserProfile = context.UserProfileDetails.SingleOrDefault(x => x.Id == bookingHistory.UserId);
+
+			string emailBody = $"Cancel successfull, here is the PNR number for your booking {bookingHistory.PNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} => {trainDetails.Arrival}\nTickets : {bookingHistory.ticketCount}";
+
+			EmailService em = new EmailService();
+			em.SendEmail(emailBody, UserProfile.Email);
+
+			// Remove the booking
+			context.Bookings.Remove(bookingHistory);
 
             context.SaveChanges();
 
