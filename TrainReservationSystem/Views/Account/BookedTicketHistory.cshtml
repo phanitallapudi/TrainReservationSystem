@@ -25,7 +25,7 @@
 <h1>BookedTicketHistory</h1>
 
 <table class="table">
-    <thead>
+@*    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.PNR)
@@ -38,27 +38,21 @@
             </th>
             <th></th>
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PNR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ticketCount)
-            </td>
-            <td>
-                <form method="post" action="@Url.Action("CancelTicket", new { id = item.Id })">
-                    <input type="hidden" name="pnr" value="@item.PNR" />
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ticket?')">Cancel</button>
-                </form>
-            </td>
-
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <div class="card my-3">
+                <div class="card-body">
+                    <h5 class="card-title">PNR Number: @Html.DisplayFor(modelItem => item.PNR)</h5>
+                    <p class="card-text">Booking Date: @Html.DisplayFor(modelItem => item.BookingDate)</p>
+                    <p class="card-text">Ticket Count: @Html.DisplayFor(modelItem => item.ticketCount)</p>
+                    <form method="post" action="@Url.Action("CancelTicket", new { id = item.Id })">
+                        <input type="hidden" name="pnr" value="@item.PNR" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ticket?')">Cancel Ticket</button>
+                    </form>
+                </div>
+            </div>
+        }
     </tbody>
 </table>
