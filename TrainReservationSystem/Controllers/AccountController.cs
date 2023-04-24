@@ -101,6 +101,7 @@ namespace TrainReservationSystem.Controllers
         [HttpPost]
         public IActionResult SignUp(UserProfileDetails userProf)
         {
+            TempData["UserProf"] = userProf;
             if (!UserExists(userProf.Email))
             {
                 string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
@@ -118,11 +119,11 @@ namespace TrainReservationSystem.Controllers
                     {
                         TempData["Message"] = "Passwords are not matching";
                         //ModelState.Clear();
-                        return RedirectToAction("SignUp");
+                        return View(TempData["UserProf"]);
                     }
                     string hPass = HashPassword(userProf.Password);
                     userProf.Password = hPass;
-                    //userProf.ConfirmPassword = hPass;
+                    userProf.ConfirmPassword = hPass;
 
 
                     context.UserProfileDetails.Add(userProf);
@@ -130,27 +131,29 @@ namespace TrainReservationSystem.Controllers
 
                     if (count > 0)
                     {
+                        TempData.Remove("UserProf");
                         TempData["MessageACS"] = "Account created successfully, please log in.";
+                        return RedirectToAction("SignUp");
                     }
                     else
                     {
                         TempData["Message"] = "Error occurred.";
                         ModelState.Clear();
-                        return RedirectToAction("SignUp");
+                        return View(TempData["UserProf"]);
                     }
                 }
                 else
                 {
                     TempData["Message"] = "Please enter a valid email address.";
                     //ModelState.Clear();
-                    return RedirectToAction("SignUp");
+                    return View(TempData["UserProf"]);
                 }
             }
             else
             {
                 TempData["MessageUAE"] = "User already exists.";
                 ModelState.Clear();
-                return RedirectToAction("SignUp");
+                return View(TempData["UserProf"]);
             }
 
             return RedirectToAction("Login");

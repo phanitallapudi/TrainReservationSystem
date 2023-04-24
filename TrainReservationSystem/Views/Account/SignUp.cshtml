@@ -2,19 +2,19 @@
 
 @if (TempData["Message"] != null)
 {
-    <script>alert('@TempData["Message"]')</script>
+    <div class="alert alert-danger" role="alert">@TempData["Message"]</div>
 }
 @if (TempData["MessageACS"] != null)
 {
-    <script>alert('@TempData["MessageACS"]')</script>
+    <div class="alert alert-success" role="alert">@TempData["MessageACS"]</div>
 }
 @if (TempData["MessageUAE"] != null)
 {
-    <script>alert('@TempData["MessageUAE"]')</script>
+    <div class="alert alert-danger" role="alert">@TempData["MessageUAE"]</div>
 }
 @if (TempData["ConfirmPassword"] != null)
 {
-    <script>alert('@TempData["ConfirmPassword"]')</script>
+    <div class="alert alert-danger" role="alert">@TempData["ConfirmPassword"]</div>
 }
 
 @{
