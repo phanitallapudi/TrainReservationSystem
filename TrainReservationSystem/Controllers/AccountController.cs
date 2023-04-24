@@ -319,6 +319,11 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult BookTicket()
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
 
@@ -326,6 +331,11 @@ namespace TrainReservationSystem.Controllers
         [Route("Account/BookTicket/{TrainId}")]
         public IActionResult BookTicket(int TrainId, BookingHistory bgh)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (bgh.ticketCount > 6)
             {
                 TempData["TicketCountG6"] = "Cannot book more than 6 tickets ";
@@ -387,6 +397,11 @@ namespace TrainReservationSystem.Controllers
         [HttpGet]
         public IActionResult PassengerDetails(int id)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             var bookingHistory = context.Bookings.SingleOrDefault(b => b.Id == id);
 
             if (bookingHistory == null)
@@ -409,6 +424,11 @@ namespace TrainReservationSystem.Controllers
         [HttpPost]
         public IActionResult PassengerDetails(List<PassengerDetails> passengerDetails)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (passengerDetails == null)
             {
                 return View("Welcome");
@@ -435,17 +455,32 @@ namespace TrainReservationSystem.Controllers
 
         public IActionResult BookedTicketHistory()
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             var UserId = HttpContext.Session.GetInt32("UserId");
             return View(context.Bookings.Where(x => x.UserId == UserId));
         }
 
         public IActionResult PNRViewAccount()
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
         [HttpPost]
         public IActionResult PNRViewAccount(int pnr)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             PNR_ClassMembers pNR_Main_ClassMembers = new PNR_ClassMembers();
 
             List<PNR_PassengerDetails> pNR_Passengers = new List<PNR_PassengerDetails>();
@@ -494,6 +529,11 @@ namespace TrainReservationSystem.Controllers
         [HttpPost]
         public IActionResult CancelTicket(int id)
         {
+            var jwtToken = HttpContext.Session.GetString("JWTtoken");
+            if (jwtToken == null)
+            {
+                return RedirectToAction("Login");
+            }
             var bookingHistory = context.Bookings.SingleOrDefault(b => b.Id == id);
 
             if (bookingHistory == null)
