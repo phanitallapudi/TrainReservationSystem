@@ -329,6 +329,13 @@ namespace TrainReservationSystem.Controllers
                 return RedirectToAction("Welcome");
             }
 
+            var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
+            if (bgh.ticketCount > trainDetails.SeatCapacity)
+            {
+                TempData["TicketCountG6"] = "Tickets are not available, please try for another train";
+                return RedirectToAction("Welcome");
+            }
+
             BookingHistory bookingHistory = new BookingHistory();
 
             var UserId = HttpContext.Session.GetInt32("UserId");
@@ -336,7 +343,6 @@ namespace TrainReservationSystem.Controllers
             var UserDetails = context.UserProfileDetails.SingleOrDefault(x => x.Id == UserId);
             HttpContext.Session.SetString("UserEmail", UserDetails.Email);
             bookingHistory.UserProfileDetails = UserDetails;
-            var trainDetails = context.TrainDetails.SingleOrDefault(x => x.Id == TrainId);
             bookingHistory.TrainDetails = trainDetails;
             bookingHistory.BookingDate = DateTime.Now;
             bool status = true;
