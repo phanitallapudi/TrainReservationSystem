@@ -9,89 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TrainReservationSystem
 build_property.RootNamespace = TrainReservationSystem
-build_property.ProjectDir = C:\Users\Harshvardhan\Desktop\TrainReservationSystem\TrainReservationSystem\
+build_property.ProjectDir = D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Harshvardhan\Desktop\TrainReservationSystem\TrainReservationSystem
+build_property.MSBuildProjectDirectory = D:\ASP.NET Projects\TrainReservationSystemSolution\TrainReservationSystem\TrainReservationSystem
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/BookedTicketHistory.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/BookedTicketHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxCb29rZWRUaWNrZXRIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/BookTicket.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/BookTicket.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxCb29rVGlja2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/CancelTicket.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/CancelTicket.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDYW5jZWxUaWNrZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/Login.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/PassengerDetails.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/PassengerDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQYXNzZW5nZXJEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/PNRViewAccount.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/PNRViewAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQTlJWaWV3QWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/SignUp.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWduVXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Account/Welcome.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Account/Welcome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxXZWxjb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Admin/Create.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Admin/Index.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoDelete.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoDelete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5mb0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoEdit.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Admin/InfoEdit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5mb0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Home/checkPNR.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Home/checkPNR.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjaGVja1BOUi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Home/Index.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Home/Privacy.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Shared/Error.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/_ViewImports.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/_ViewStart.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Harshvardhan/Desktop/TrainReservationSystem/TrainReservationSystem/Views/Shared/_Layout.cshtml]
+[D:/ASP.NET Projects/TrainReservationSystemSolution/TrainReservationSystem/TrainReservationSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-0gjrz2kuw9
