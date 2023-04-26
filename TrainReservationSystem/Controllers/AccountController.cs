@@ -122,6 +122,16 @@ namespace TrainReservationSystem.Controllers
                         //ModelState.Clear();
                         return View(TempData["UserProf"]);
                     }
+
+                    string passwordPattern = @"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+                    bool isValidPassword = Regex.IsMatch(userProf.Password, passwordPattern);
+
+                    if (!isValidPassword)
+                    {
+                        TempData["Message"] = "Password should contain at least one capital letter, one symbol, and be minimum 8 characters long.";
+                        return View(TempData["UserProf"]);
+                    }
+                    string tempData = userProf.Password;
                     string hPass = HashPassword(userProf.Password);
                     userProf.Password = hPass;
                     userProf.ConfirmPassword = hPass;
@@ -133,6 +143,10 @@ namespace TrainReservationSystem.Controllers
                     if (count > 0)
                     {
                         TempData.Remove("UserProf");
+                        string emailBody = $"Train Reservation System\n\nDear, {userProf.Name},\nYour account has been successfully created with Train Reservation System.\nPlease find below your login credentials:\nEmail : {userProf.Email}\nPassword : {tempData}\nThank you for choosing our service.\nBest regards,\nThe Train Reservation System team";
+                        string subject = "Welcome to Train Reservation System";
+                        EmailService em = new EmailService();
+                        em.SendEmail(emailBody, userProf.Email, subject);
                         TempData["MessageACS"] = "Account created successfully, please log in.";
                         return RedirectToAction("SignUp");
                     }
@@ -387,7 +401,7 @@ namespace TrainReservationSystem.Controllers
 
             var emailAddress = HttpContext.Session.GetString("UserEmail");
 
-            string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} => {trainDetails.Arrival}\nTickets : {bgh.ticketCount}";
+            string emailBody = $"Booking successfull, here is the PNR number for your booking {tempPNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} - {trainDetails.Arrival}\nTickets : {bgh.ticketCount}";
 
             EmailService em = new EmailService();
             em.SendEmail(emailBody, emailAddress);
@@ -552,7 +566,7 @@ namespace TrainReservationSystem.Controllers
 
             var UserProfile = context.UserProfileDetails.SingleOrDefault(x => x.Id == bookingHistory.UserId);
 
-			string emailBody = $"Cancel successfull, here is the PNR number for your booking {bookingHistory.PNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} => {trainDetails.Arrival}\nTickets : {bookingHistory.ticketCount}";
+			string emailBody = $"Cancel successfull, here is the PNR number for your cancelled booking {bookingHistory.PNR},\nTrain Details \nTrain Number : {trainDetails.TrainId}\nTrain Name : {trainDetails.TrainName}\n Travel Date : {trainDetails.Departure} - {trainDetails.Arrival}\nTickets : {bookingHistory.ticketCount}";
 
 			EmailService em = new EmailService();
 			em.SendEmail(emailBody, UserProfile.Email);

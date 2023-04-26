@@ -4,7 +4,7 @@ namespace TrainReservationSystem.Services
 {
     public class EmailService
     {
-        public void SendEmail(string body, string emailAddress)
+        public void SendEmail(string body, string emailAddress, string subject = "Train Booking Notification")
         {
             string smtpServer = "smtp.gmail.com";
             int smtpPort = 587;
@@ -14,7 +14,7 @@ namespace TrainReservationSystem.Services
             MailMessage message = new MailMessage();
             message.From = new MailAddress("testerrone5@gmail.com");
             message.To.Add(emailAddress);
-            message.Subject = "Train Booking Notification";
+            message.Subject = subject;
             message.Body = body;
 			;
 
