@@ -29,6 +29,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <span class="navbar-text ms-auto" id="live-time"></span>
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null)
                         {
                             <li class="nav-item dropdown">
@@ -85,6 +86,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function updateLiveTime() {
+            var now = new Date();
+            var time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            var date = now.toLocaleDateString();
+            document.getElementById("live-time").textContent = date + ' ' + time;
+        }
+        setInterval(updateLiveTime, 1000);
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
